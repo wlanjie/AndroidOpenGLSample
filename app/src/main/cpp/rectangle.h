@@ -2,19 +2,22 @@
 // Created by wlanjie on 2017/3/18.
 //
 
-#ifndef ANDROIDOPENGLSAMPLE_TRIANGLES_H
-#define ANDROIDOPENGLSAMPLE_TRIANGLES_H
+#ifndef ANDROIDOPENGLSAMPLE_RECTANGLE_H
+#define ANDROIDOPENGLSAMPLE_RECTANGLE_H
 
 #include "opengl.h"
 
-class Triangles : public OpenGL {
-
+/**
+ * 使用索引缓存绘制四方形
+ */
+class Rectangle : public OpenGL {
 public:
-    Triangles();
-    ~Triangles();
+    Rectangle();
+    ~Rectangle();
 
 private:
     GLuint vbo;
+    GLuint ebo;
     GLuint shader;
     GLuint program;
     GLint positionLocation;
@@ -32,5 +35,4 @@ private:
     virtual void release();
 };
 
-
-#endif //ANDROIDOPENGLSAMPLE_TRIANGLES_H
+#endif //ANDROIDOPENGLSAMPLE_RECTANGLE_H

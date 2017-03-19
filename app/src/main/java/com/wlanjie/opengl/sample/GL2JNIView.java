@@ -64,7 +64,8 @@ import javax.microedition.khronos.opengles.GL10;
 class GL2JNIView extends GLSurfaceView {
 
     enum DrawType {
-        Triangles
+        Triangles,
+        Rectangle
     }
 
     private static String TAG = "GL2JNIView";

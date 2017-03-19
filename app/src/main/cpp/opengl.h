@@ -11,11 +11,17 @@
 class OpenGL {
 
 public:
+    OpenGL();
+    ~OpenGL();
+
+public:
     virtual void init(int width, int height) = 0;
 
     virtual void draw() = 0;
 
     virtual void release() = 0;
+
+    void checkGlError(const char* op);
 
 private:
     virtual GLuint loadShader(GLuint shaderType, const char *shaderSource) = 0;

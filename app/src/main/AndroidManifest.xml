@@ -17,6 +17,7 @@
         </activity>
 
         <activity android:name=".TrianglesActivity" />
+        <activity android:name=".RectangleActivity" />
     </application>
 
 </manifest>

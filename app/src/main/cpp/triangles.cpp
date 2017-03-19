@@ -23,6 +23,13 @@ auto fragmentSource = "precision mediump float;\n"
         "   gl_FragColor = vec4(1.0, 0.5, 0.2, 1.0);\n"
         "}\n";
 
+Triangles::Triangles() {
+
+}
+
+Triangles::~Triangles() {
+
+}
 
 void Triangles::init(int width, int height) {
     glViewport(0, 0, width, height);
@@ -39,11 +46,7 @@ void Triangles::init(int width, int height) {
         return;
     }
     positionLocation = glGetAttribLocation(program, "vPosition");
-}
 
-void Triangles::draw() {
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glUseProgram(program);
     glEnableVertexAttribArray((GLuint) positionLocation);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -65,6 +68,12 @@ void Triangles::draw() {
      */
     glVertexAttribPointer((GLuint) positionLocation, 3, GL_FLOAT, GL_FALSE, 0, 0);
 //    glVertexAttribPointer(positionLocation, 2, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid *) 0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void Triangles::draw() {
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
@@ -92,12 +101,6 @@ GLuint Triangles::loadShader(GLuint shaderType, const char *shaderSource) {
     }
 
     return shader;
-}
-
-void checkGlError(const char* op) {
-    for (GLint error = glGetError(); error; error = glGetError()) {
-        LOGI("after %s() glError (0x%x)\n", op, error);
-    }
 }
 
 void Triangles::createProgram() {
@@ -135,12 +138,3 @@ void Triangles::release() {
     glDeleteBuffers(1, &vbo);
     glDeleteProgram(program);
 }
-
-
-
-
-
-
-
-
-
