@@ -18,6 +18,7 @@
 
         <activity android:name=".TrianglesActivity" />
         <activity android:name=".RectangleActivity" />
+        <activity android:name=".TextureActivity" />
     </application>
 
 </manifest>

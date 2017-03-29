@@ -12,7 +12,7 @@ class OpenGL {
 
 public:
     OpenGL();
-    ~OpenGL();
+    virtual ~OpenGL();
 
 public:
     virtual void init(int width, int height) = 0;
@@ -23,7 +23,6 @@ public:
 
     void checkGlError(const char* op);
 
-private:
     virtual GLuint loadShader(GLuint shaderType, const char *shaderSource) = 0;
 
     virtual void createProgram() = 0;

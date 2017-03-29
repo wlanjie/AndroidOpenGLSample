@@ -14,6 +14,7 @@ GLfloat vertex[] = {
 };
 
 auto vertexSource = "attribute vec4 vPosition;\n"
+        "attribute vec2 texCoord;\n"
         "void main() {\n"
         "   gl_Position = vPosition;\n"
         "}\n";
@@ -78,7 +79,7 @@ void Triangles::draw() {
 }
 
 GLuint Triangles::loadShader(GLuint shaderType, const char *shaderSource) {
-    shader = glCreateShader(shaderType);
+    GLuint shader = glCreateShader(shaderType);
     if (shader) {
         glShaderSource(shader, 1, &shaderSource, NULL);
         glCompileShader(shader);
@@ -113,15 +114,15 @@ void Triangles::createProgram() {
         glAttachShader(program, fragment);
         checkGlError("glAttachFragmentShader");
         glLinkProgram(program);
-        GLint linkStatus;
+        GLint linkStatus = GL_FALSE;
         glGetProgramiv(program, GL_LINK_STATUS, &linkStatus);
-        if (!linkStatus) {
+        if (linkStatus != GL_TRUE) {
             GLint infoLen;
-            glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLen);
+            glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLen);
             if (infoLen) {
                 char *buf = (char *) malloc((size_t) infoLen);
                 if (buf) {
-                    glGetShaderInfoLog(shader, infoLen, NULL, buf);
+                    glGetProgramInfoLog(program, infoLen, NULL, buf);
                     LOGE("Could not link %s\n", buf);
                     free(buf);
                 }

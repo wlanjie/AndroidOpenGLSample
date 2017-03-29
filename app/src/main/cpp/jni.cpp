@@ -27,5 +27,5 @@ void Java_com_wlanjie_opengl_sample_GL2JNILib_draw(JNIEnv *env, jobject object) 
 extern "C"
 void Java_com_wlanjie_opengl_sample_GL2JNILib_release(JNIEnv *env, jobject object) {
     openGL->release();
-//    delete openGL;
+    delete openGL;
 }

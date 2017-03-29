@@ -23,4 +23,13 @@
         android:layout_toRightOf="@+id/triangles"
         android:layout_toEndOf="@+id/triangles"
         android:id="@+id/rectangle"/>
+
+    <Button
+        android:text="纹理三角形"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/rectangle"
+        android:layout_toEndOf="@+id/rectangle"
+        android:id="@+id/texture_triangles"/>
 </RelativeLayout>

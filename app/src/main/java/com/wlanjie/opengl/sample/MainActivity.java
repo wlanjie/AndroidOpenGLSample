@@ -28,6 +28,13 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(MainActivity.this, RectangleActivity.class));
                 }
             });
+        findViewById(R.id.texture_triangles)
+            .setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(MainActivity.this, TextureActivity.class));
+                }
+            });
     }
 
 }

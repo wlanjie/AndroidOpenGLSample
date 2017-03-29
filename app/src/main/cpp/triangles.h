@@ -15,7 +15,6 @@ public:
 
 private:
     GLuint vbo;
-    GLuint shader;
     GLuint program;
     GLint positionLocation;
 

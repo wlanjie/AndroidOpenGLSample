@@ -60,6 +60,7 @@ void Rectangle::init(int width, int height) {
 
     glEnableVertexAttribArray((GLuint) positionLocation);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    // 使用索引绘制必须先要激活 GL_VERTEX_ARRAY 才会有数据显示
     glVertexAttribPointer((GLuint) positionLocation, 3, GL_FLOAT, GL_FALSE, 0, 0);
 //    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -73,7 +74,7 @@ void Rectangle::draw() {
 }
 
 GLuint Rectangle::loadShader(GLuint shaderType, const char *shaderSource) {
-    shader = glCreateShader(shaderType);
+    GLuint shader = glCreateShader(shaderType);
     if (shader) {
         glShaderSource(shader, 1, &shaderSource, NULL);
         glCompileShader(shader);
@@ -108,15 +109,15 @@ void Rectangle::createProgram() {
         glAttachShader(program, fragment);
         checkGlError("glAttachFragmentShader");
         glLinkProgram(program);
-        GLint linkStatus;
+        GLint linkStatus = GL_FALSE;
         glGetProgramiv(program, GL_LINK_STATUS, &linkStatus);
-        if (!linkStatus) {
+        if (linkStatus != GL_TRUE) {
             GLint infoLen;
-            glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLen);
+            glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLen);
             if (infoLen) {
                 char *buf = (char *) malloc((size_t) infoLen);
                 if (buf) {
-                    glGetShaderInfoLog(shader, infoLen, NULL, buf);
+                    glGetProgramInfoLog(program, infoLen, NULL, buf);
                     LOGE("Could not link %s\n", buf);
                     free(buf);
                 }
