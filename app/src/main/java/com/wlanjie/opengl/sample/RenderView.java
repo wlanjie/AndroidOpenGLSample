@@ -341,13 +341,20 @@ class RenderView extends GLSurfaceView {
     private int vertexShader;
     private int fragmentShader;
 
+    /**
+     * 你可能注意到纹理上下颠倒了！这是因为OpenGL要求y轴0.0坐标是在图片的底部的，但是图片的y轴0.0坐标通常在顶部
+     * 我们可以改变顶点数据的纹理坐标，翻转y值（用1减去y坐标）。
+     * 我们可以编辑顶点着色器来自动翻转y坐标，替换TexCoord的值
+     * 为TexCoord = vec2(texCoord.x, 1.0f - texCoord.y);。
+     * 上面提供的解决方案仅仅通过一些黑科技让图片翻转。它们在大多数情况下都能正常工作，然而实际上这种方案的效果取决于你的实现和纹理，所以最好的解决方案是调整你的图片加载器，或者以一种y原点符合OpenGL需求的方式编辑你的纹理图像
+     */
     private String vertexSource = "attribute vec4 aPosition;\n" +
         "attribute vec2 aTexCoord;\n" +
         "varying vec2 vTexCoord;\n" +
         "uniform mat4 uMatrix;\n" +
         "void main() {\n" +
-        "    vTexCoord=aTexCoord;\n" +
-        "    gl_Position = uMatrix*aPosition;\n" +
+        "    vTexCoord = vec2(aTexCoord.x, 1.0 - aTexCoord.y);\n" +
+        "    gl_Position = aPosition;\n" +
         "}\n";
 
     private String fragmentSource = "precision mediump float;\n" +
@@ -360,29 +367,24 @@ class RenderView extends GLSurfaceView {
     private int program;
     private int textureId;
 
-    // 5个点,三角形显示区域
     private final float[] mVertexData = {
-        0f,    0f,    0f,
-        1.0f,  0.75f, 0f,
-        -1.0f,  0.75f, 0f,
-        -1.0f, -0.75f, 0f,
-        1.0f, -0.75f, 0f
+        1.0f,  1.0f, 0.0f, // 右上角
+        1.0f, -1.0f, 0.0f, // 右下角
+        -1.0f, -1.0f, 0.0f, // 左下角
+        -1.0f,  1.0f, 0.0f // 在上角
     };
 
     private final short[] mIndexData = {
-        0, 1, 2, // 0号点，1号点，2号点组成一个三角形
-        0, 2, 3, // 0号点，2号点，3号点组成一个三角形
-        0, 3, 4, // 0号点，3号点，4号点组成一个三角形
-        0, 4, 1 // 0号点， 4号点，1号点组成一个三角形
+        0, 1, 3, // 第一个三角形
+        1, 2, 3  // 第二个三角形
     };
 
     //纹理坐标
     private final float[] mTextureVertexData = {
-        0.5f,0.375f,
-        1f,0f,
-        0f,0f,
-        0f,0.75f,
-        1f,0.75f
+        1.0f, 1.0f, // 右上角
+        1.0f, 0.0f, // 右下角
+        0.0f, 0.0f, // 左下角
+        0.0f, 1.0f // 左上角
     };
 
     private ShortBuffer mIndexBuffer;
