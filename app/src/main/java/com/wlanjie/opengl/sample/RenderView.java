@@ -385,12 +385,15 @@ class RenderView extends GLSurfaceView {
         1.0f, 0.0f, // 右下角
         0.0f, 0.0f, // 左下角
         0.0f, 1.0f // 左上角
+//        0.8f, 0.8f,
+//        0.8f, 0.2f,
+//        0.2f, 0.2f,
+//        0.2f, 0.8f
     };
 
     private ShortBuffer mIndexBuffer;
     private FloatBuffer mVertexBuffer;
     private FloatBuffer mTextureVertexBuffer;
-    private float[] projectionMatrix = new float[16];
     public  float[] createIdentityMtx() {
         float[] m = new float[16];
         Matrix.setIdentityM(m, 0);
@@ -485,7 +488,12 @@ class RenderView extends GLSurfaceView {
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureObjectIds[0]);
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR_MIPMAP_LINEAR);
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_LINEAR);
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_LINEAR);
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
+        ByteBuffer buffer = ByteBuffer.allocate(bitmap.getByteCount());
+//        bitmap.copyPixelsToBuffer(buffer);
+        GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, 0, bitmap.getWidth(), bitmap.getHeight(), 0, 0, 0, buffer);
         bitmap.recycle();
 
         //与target相关联的纹理图像生成一组完整的mipmap
