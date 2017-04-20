@@ -354,7 +354,7 @@ class RenderView extends GLSurfaceView {
         "uniform mat4 uMatrix;\n" +
         "void main() {\n" +
         "    vTexCoord = vec2(aTexCoord.x, 1.0 - aTexCoord.y);\n" +
-        "    gl_Position = aPosition;\n" +
+        "    gl_Position = uMatrix * aPosition;\n" +
         "}\n";
 
     private String fragmentSource = "precision mediump float;\n" +
@@ -391,6 +391,10 @@ class RenderView extends GLSurfaceView {
 //        0.2f, 0.8f
     };
 
+    private final float[] mProjectionMatrix = new float[16];
+    private final float[] mCameraMatrix = new float[16];
+    private final float[] mMVPMatrix = new float[16];
+
     private ShortBuffer mIndexBuffer;
     private FloatBuffer mVertexBuffer;
     private FloatBuffer mTextureVertexBuffer;
@@ -407,7 +411,7 @@ class RenderView extends GLSurfaceView {
             GLES20.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
             GLES20.glUseProgram(program);
             int mMatrix = GLES20.glGetUniformLocation(program, "uMatrix");
-            GLES20.glUniformMatrix4fv(mMatrix, 1, false, createIdentityMtx(), 0);
+            GLES20.glUniformMatrix4fv(mMatrix, 1, false, mMVPMatrix, 0);
             int mPosition = GLES20.glGetAttribLocation(program, "aPosition");
             GLES20.glEnableVertexAttribArray(mPosition);
             GLES20.glVertexAttribPointer(mPosition, 3, GLES20.GL_FLOAT, false,
@@ -427,6 +431,33 @@ class RenderView extends GLSurfaceView {
         }
 
         public void onSurfaceChanged(GL10 gl, int width, int height) {
+            float ratio = width > height ? width / height : height / width;
+            /**
+             * 具体解释参见： https://blog.piasy.com/2016/06/07/Open-gl-es-android-2-part-1/
+             * 前两个参数不用多说，Javadoc 里面就有，m 是保存变换矩阵的数组，offset 是开始保存的下标偏移量。后面的 6 个参数就是那篇博客中提到的参数了，那我们为什么要为它们设置这样的值呢？
+             * surface view 的宽高为 width 和 height，我们要把 OpenGL 坐标系投影到 surface view 上。
+             * 首先我们忽略坐标系的方向问题（方向问题由相机视觉解决），
+             * 以 OpenGL 的方向为准，我们把坐标原点置于 view 中心，这样 view 的 y 轴范围就是 [- height / 2, height / 2]，x 轴范围就是 [- width / 2, width / 2]
+             * 如果我们希望 OpenGL 坐标系 y 坐标范围充满 surface view 的高，
+             * 那我们就需要让 [-1, 1] 和 [- height / 2, height / 2] 映射起来。
+             * 怎么做呢？除以 height/ 2 即可。此时 x 轴范围就变成了 [- width / height, width / height]，也就是 [-ratio, ratio] 了，
+             * 我们当然可以把 x 坐标范围归一化为 [-1, 1]，这时我们的矩阵代码需要变成这样，
+             * float ratio = (float) height / width;
+             * Matrix.frustumM(mProjectionMatrix, 0, -1, 1, -ratio, ratio, 3, 7);
+             * 那最后的 near 和 far 是怎么确定的呢？它们是投影时的近平面和远平面的 z 坐标。这两个值其实是和相机视觉一起用的，所以我们在下节中再介绍，现在只需要记住，0 < near < far 即可
+             */
+            Matrix.frustumM(mProjectionMatrix, 0, -1, 1, -ratio, ratio, 3, 7);
+
+            /**
+             * 我们需要传入 9 个坐标值，(eyeX, eyeY, eyeX)，(centerX, centerY, centerZ)，(upX, upY, upZ)。
+             * eye 表示相机的坐标点，center 表示物体（目标，或者图形）的中心坐标点，up 表示方向向量。
+             * 通常情况下，我们都把 center 设置为坐标原点。而由于上节中介绍的投影变换是投影到 x, y 平面，
+             * 所以相机都在 z 轴上，至于在 z 轴的哪个点，就要结合调用 Matrix.frustumM 时的 near 和 far 参数了，near <= z <= far 时我们才能看到渲染的内容，否则屏幕上就是空白了
+             * up 向量的长度无关紧要，重要的是方向。左图中，我们把 up 设置为 y 轴方向，即 (0, 1, 0)，我们让 up 向量指向我们的正上方（这时不需要动），
+             * 那此时我们看到的样式就是 OpenGL 渲染出来的样子。而在右图中，我们把 up 设置为 x 轴方向，即 (1, 0, 0)，这时我们就需要先把图逆时针旋转 90°，所以 OpenGL 渲染出来的将是逆时针旋转 90° 之后的
+             */
+            Matrix.setLookAtM(mCameraMatrix, 0, 0, 0, 3, 0, 0, 0, 0, 1, 0);
+            Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mCameraMatrix, 0);
         }
 
         public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -487,13 +518,11 @@ class RenderView extends GLSurfaceView {
 
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureObjectIds[0]);
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR_MIPMAP_LINEAR);
-        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
+        GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR_MIPMAP_LINEAR);
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_LINEAR);
         GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_LINEAR);
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
-        ByteBuffer buffer = ByteBuffer.allocate(bitmap.getByteCount());
-//        bitmap.copyPixelsToBuffer(buffer);
-        GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, 0, bitmap.getWidth(), bitmap.getHeight(), 0, 0, 0, buffer);
+//        GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, 0, bitmap.getWidth(), bitmap.getHeight(), 0, 0, 0, buffer);
         bitmap.recycle();
 
         //与target相关联的纹理图像生成一组完整的mipmap
