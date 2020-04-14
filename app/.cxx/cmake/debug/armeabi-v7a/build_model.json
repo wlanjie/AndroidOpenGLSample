@@ -1,0 +1,214 @@
+{
+  "abi": "ARMEABI_V7A",
+  "abiPlatformVersion": 16,
+  "buildSettings": {
+    "environmentVariables": []
+  },
+  "cmake": {
+    "cmakeArtifactsBaseFolder": "/Users/wlanjie/Downloads/AndroidOpenGLSample/app/.cxx/cmake/debug/armeabi-v7a",
+    "cmakeServerLogFile": "/Users/wlanjie/Downloads/AndroidOpenGLSample/app/.cxx/cmake/debug/armeabi-v7a/cmake_server_log.txt",
+    "cmakeWrappingBaseFolder": "/Users/wlanjie/Downloads/AndroidOpenGLSample/app/.cxx/cxx/debug/armeabi-v7a",
+    "effectiveConfiguration": {
+      "name": "traditional-android-studio-cmake-environment",
+      "description": "Composite reified CMakeSettings configuration",
+      "generator": "Ninja",
+      "inheritEnvironments": [
+        "ndk"
+      ],
+      "buildRoot": "/Users/wlanjie/Downloads/AndroidOpenGLSample/app/.cxx/cmake/debug/armeabi-v7a",
+      "cmakeToolchain": "/Users/wlanjie/Documents/android-sdk-macosx/ndk-bundle/build/cmake/android.toolchain.cmake",
+      "cmakeExecutable": "/Users/wlanjie/Documents/android-sdk-macosx/cmake/3.10.2.4988404/bin/cmake",
+      "variables": [
+        {
+          "name": "CMAKE_CXX_FLAGS",
+          "value": "-std\u003dc++11"
+        },
+        {
+          "name": "CMAKE_BUILD_TYPE",
+          "value": "Debug"
+        },
+        {
+          "name": "CMAKE_TOOLCHAIN_FILE",
+          "value": "/Users/wlanjie/Documents/android-sdk-macosx/ndk-bundle/build/cmake/android.toolchain.cmake"
+        },
+        {
+          "name": "ANDROID_ABI",
+          "value": "armeabi-v7a"
+        },
+        {
+          "name": "ANDROID_NDK",
+          "value": "/Users/wlanjie/Documents/android-sdk-macosx/ndk-bundle"
+        },
+        {
+          "name": "ANDROID_PLATFORM",
+          "value": "android-16"
+        },
+        {
+          "name": "CMAKE_ANDROID_ARCH_ABI",
+          "value": "armeabi-v7a"
+        },
+        {
+          "name": "CMAKE_ANDROID_NDK",
+          "value": "/Users/wlanjie/Documents/android-sdk-macosx/ndk-bundle"
+        },
+        {
+          "name": "CMAKE_EXPORT_COMPILE_COMMANDS",
+          "value": "ON"
+        },
+        {
+          "name": "CMAKE_LIBRARY_OUTPUT_DIRECTORY",
+          "value": "/Users/wlanjie/Downloads/AndroidOpenGLSample/app/build/intermediates/cmake/debug/obj/armeabi-v7a"
+        },
+        {
+          "name": "CMAKE_MAKE_PROGRAM",
+          "value": "/Users/wlanjie/Documents/android-sdk-macosx/cmake/3.10.2.4988404/bin/ninja"
+        },
+        {
+          "name": "CMAKE_SYSTEM_NAME",
+          "value": "Android"
+        },
+        {
+          "name": "CMAKE_SYSTEM_VERSION",
+          "value": "16"
+        },
+        {
+          "name": "ANDROID_ARM_NEON",
+          "value": "TRUE"
+        },
+        {
+          "name": "ANDROID_TOOLCHAIN",
+          "value": "clang"
+        },
+        {
+          "name": "ANDROID_STL",
+          "value": "c++_shared"
+        }
+      ]
+    }
+  },
+  "cxxBuildFolder": "/Users/wlanjie/Downloads/AndroidOpenGLSample/app/.cxx/cmake/debug/armeabi-v7a",
+  "info": {
+    "abi": "ARMEABI_V7A",
+    "bitness": 32,
+    "deprecated": false,
+    "default": true
+  },
+  "originalCxxBuildFolder": "/Users/wlanjie/Downloads/AndroidOpenGLSample/app/.cxx/cmake/debug/armeabi-v7a",
+  "variant": {
+    "buildSystemArgumentList": [
+      "-DANDROID_ARM_NEON\u003dTRUE",
+      "-DANDROID_TOOLCHAIN\u003dclang",
+      "-DANDROID_STL\u003dc++_shared"
+    ],
+    "buildTargetSet": [],
+    "cFlagsList": [],
+    "cmakeSettingsConfiguration": "android-gradle-plugin-predetermined-name",
+    "cppFlagsList": [
+      "-std\u003dc++11"
+    ],
+    "isDebuggableEnabled": true,
+    "module": {
+      "buildSystem": "CMAKE",
+      "cmake": {
+        "cmakeExe": "/Users/wlanjie/Documents/android-sdk-macosx/cmake/3.10.2.4988404/bin/cmake",
+        "minimumCmakeVersion": "3.10.2",
+        "ninjaExe": "/Users/wlanjie/Documents/android-sdk-macosx/cmake/3.10.2.4988404/bin/ninja"
+      },
+      "cmakeToolchainFile": "/Users/wlanjie/Documents/android-sdk-macosx/ndk-bundle/build/cmake/android.toolchain.cmake",
+      "cxxFolder": "/Users/wlanjie/Downloads/AndroidOpenGLSample/app/.cxx",
+      "gradleModulePathName": ":app",
+      "intermediatesFolder": "/Users/wlanjie/Downloads/AndroidOpenGLSample/app/build/intermediates",
+      "makeFile": "/Users/wlanjie/Downloads/AndroidOpenGLSample/app/src/main/cpp/CMakeLists.txt",
+      "moduleBuildFile": "/Users/wlanjie/Downloads/AndroidOpenGLSample/app/build.gradle",
+      "moduleRootFolder": "/Users/wlanjie/Downloads/AndroidOpenGLSample/app",
+      "ndkDefaultAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "ndkFolder": "/Users/wlanjie/Documents/android-sdk-macosx/ndk-bundle",
+      "ndkMetaAbiList": [
+        {
+          "abi": "ARMEABI_V7A",
+          "bitness": 32,
+          "deprecated": false,
+          "default": true
+        },
+        {
+          "abi": "ARM64_V8A",
+          "bitness": 64,
+          "deprecated": false,
+          "default": true
+        },
+        {
+          "abi": "X86",
+          "bitness": 32,
+          "deprecated": false,
+          "default": true
+        },
+        {
+          "abi": "X86_64",
+          "bitness": 64,
+          "deprecated": false,
+          "default": true
+        }
+      ],
+      "ndkMetaPlatforms": {
+        "min": 16,
+        "max": 29,
+        "aliases": {
+          "20": 19,
+          "25": 24,
+          "J": 16,
+          "J-MR1": 17,
+          "J-MR2": 18,
+          "K": 19,
+          "L": 21,
+          "L-MR1": 22,
+          "M": 23,
+          "N": 24,
+          "N-MR1": 24,
+          "O": 26,
+          "O-MR1": 27,
+          "P": 28,
+          "Q": 29
+        }
+      },
+      "ndkSupportedAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "ndkVersion": "20.0.5594570",
+      "project": {
+        "compilerSettingsCacheFolder": "/Users/wlanjie/Downloads/AndroidOpenGLSample/.cxx",
+        "cxxFolder": "/Users/wlanjie/Downloads/AndroidOpenGLSample/.cxx",
+        "isBuildOnlyTargetAbiEnabled": true,
+        "isCmakeBuildCohabitationEnabled": false,
+        "isNativeCompilerSettingsCacheEnabled": false,
+        "rootBuildGradleFolder": "/Users/wlanjie/Downloads/AndroidOpenGLSample",
+        "sdkFolder": "/Users/wlanjie/Documents/android-sdk-macosx"
+      },
+      "splitsAbiFilterSet": [],
+      "stlSharedObjectMap": {
+        "LIBCXX_SHARED": {
+          "ARMEABI_V7A": "/Users/wlanjie/Documents/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/arm-linux-androideabi/libc++_shared.so",
+          "ARM64_V8A": "/Users/wlanjie/Documents/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/aarch64-linux-android/libc++_shared.so",
+          "X86": "/Users/wlanjie/Documents/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/i686-linux-android/libc++_shared.so",
+          "X86_64": "/Users/wlanjie/Documents/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/lib/x86_64-linux-android/libc++_shared.so"
+        },
+        "LIBCXX_STATIC": {},
+        "NONE": {},
+        "SYSTEM": {}
+      }
+    },
+    "objFolder": "/Users/wlanjie/Downloads/AndroidOpenGLSample/app/build/intermediates/cmake/debug/obj",
+    "variantName": "debug",
+    "validAbiList": [
+      "ARMEABI_V7A",
+      "ARM64_V8A"
+    ]
+  }
+}

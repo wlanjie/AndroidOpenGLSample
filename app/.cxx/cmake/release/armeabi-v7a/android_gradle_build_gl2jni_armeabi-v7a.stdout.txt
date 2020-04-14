@@ -1,0 +1,18 @@
+ninja: Entering directory `/Users/wlanjie/Downloads/AndroidOpenGLSample/app/.cxx/cmake/release/armeabi-v7a'
+[1/6] Building CXX object CMakeFiles/gl2jni.dir/opengl.cpp.o
+[2/6] Building CXX object CMakeFiles/gl2jni.dir/triangles.cpp.o
+[3/6] Building CXX object CMakeFiles/gl2jni.dir/rectangle.cpp.o
+[4/6] Building CXX object CMakeFiles/gl2jni.dir/texturetriangles.cpp.o
+/Users/wlanjie/Downloads/AndroidOpenGLSample/app/src/main/cpp/texturetriangles.cpp:11:9: warning: field 'program' will be initialized after field 'vbo' [-Wreorder]
+        program(0), vbo(0), shader(0) {
+        ^
+In file included from /Users/wlanjie/Downloads/AndroidOpenGLSample/app/src/main/cpp/texturetriangles.cpp:7:
+/Users/wlanjie/Downloads/AndroidOpenGLSample/app/src/main/cpp/texturetriangles.h:18:12: warning: private field 'shader' is not used [-Wunused-private-field]
+    GLuint shader;
+           ^
+/Users/wlanjie/Downloads/AndroidOpenGLSample/app/src/main/cpp/texturetriangles.h:21:13: warning: private field 'texCoords' is not used [-Wunused-private-field]
+    GLfloat texCoords[6] = {
+            ^
+3 warnings generated.
+[5/6] Building CXX object CMakeFiles/gl2jni.dir/jni.cpp.o
+[6/6] Linking CXX shared library /Users/wlanjie/Downloads/AndroidOpenGLSample/app/build/intermediates/cmake/release/obj/armeabi-v7a/libgl2jni.so
